@@ -1,9 +1,9 @@
 //============================================================================
 // Name        : a4.cpp
-// Author      : 
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Author      : 21132_Shreyash Halge
+// Version     : 1.0.0
+// Copyright   :
+// Description : Telephone directory with hashing (linear probing with/without replacement)
 //============================================================================
 
 #include <iostream>
@@ -41,12 +41,11 @@ public:
 		return telephoneNo%SIZE;
 	}
 
+	// without chaining, without replacement
 	void insert(long int telephoneNo, string name)
 	{
 		int hashIndex = hashFunction(telephoneNo);
-		cout << "hash index while inserting " << hashIndex << endl;
 //		HashEntry newHashEntry(telephoneNo, name);
-//		cout << "New hash entry: " << newHashEntry.telephoneNo << newHashEntry.name << endl;
 			bool inserted = false;
 			while(!inserted)
 			{
@@ -62,23 +61,46 @@ public:
 					hashIndex = (hashIndex+1)%SIZE;
 				}
 			}
-			cout << "just after inserting: " << ht[hashIndex].telephoneNo << ht[hashIndex].name << endl;
+
 	}
 
-	void display(long int telephoneNo)
+	void insertReplacement(long int telephoneNo, string name)
+	{
+		int hashIndex = hashFunction(telephoneNo);
+		if (ht[hashIndex].telephoneNo != 0)
+		{
+			bool matched = (hashFunction(ht[hashIndex].telephoneNo) == hashIndex);
+			if (matched)
+			{
+				insert(telephoneNo, name);
+			}
+			else
+			{
+				long int tempPhone = ht[hashIndex].telephoneNo;
+				string tempName = ht[hashIndex].name;
+				ht[hashIndex].telephoneNo = telephoneNo;
+				ht[hashIndex].name = name;
+				insert(tempPhone, tempName);
+			}
+		}
+		else
+		{
+			insert(telephoneNo, name);
+		}
+	}
+
+	int search(long int telephoneNo)
 	{
 		int hashIndex =  hashFunction(telephoneNo);
 		int started = hashIndex-1;
-		cout << "hash Index: " << hashIndex << endl;
-//		ht[hashIndex].telephoneNo = 123;
-		cout << "data: " << ht[hashIndex].telephoneNo << endl;
 		bool found = false;
+		int comparisons = 0;
 		while (!found)
 		{
-//			cout << "Stuck here" << endl;
+			comparisons++;
 			if(ht[hashIndex].telephoneNo == telephoneNo)
 			{
-				cout << telephoneNo << ht[hashIndex].name;
+				cout << telephoneNo << ": " << ht[hashIndex].name << endl;
 				found = true;
 			}
 			else if (hashIndex == started)
@@ -91,14 +113,16 @@ public:
 				hashIndex = (hashIndex + 1)%SIZE;
 			}
 		}
+		return comparisons;
 	}
 
 
 	void showTable(){
-		for(int i=0;i<SIZE;i++){
-			if(ht[i].telephoneNo!=0){
-				cout<<i<<":"<<ht[i].telephoneNo<<" "<<ht[i].name;
-			}
+		cout <<"Hash table"<< endl;
+		for(int i=0;i<SIZE;i++)
+		{
+			if(ht[i].telephoneNo!=0)
+				cout<<i<<":"<<ht[i].telephoneNo<<" "<<ht[i].name << endl;
 		}
 	}
 
@@ -106,45 +130,63 @@ public:
 };
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+	cout << "Telephone directory" << endl; // prints !!!Hello World!!!
 	HashTable directory;
+	HashTable directoryWithReplacement;
 
 	bool on = true;
 	while (on)
 	{
-
+		cout << "MAIN MENU" << endl;
 		cout << "1. Insert" << endl;
 		cout << "2. Display" << endl;
-		cout << "3. Exit" << endl;
+		cout << "3. Search" << endl;
+		cout << "4. Exit" << endl;
 		string choice;
 		cin >> choice;
 
 		if (choice == "1")
 		{
-			long int telephoneNo;
-			string name;
-			cout << "Enter telephone number: ";
-			cin >> telephoneNo;
-			cout << "Enter name: ";
-			cin >> name;
+			bool takeInput = 1;
 
-			directory.insert(telephoneNo, name);
-			directory.showTable();
+			while (takeInput)
+			{
+				long int telephoneNo;
+				string name;
+				cout << "Enter telephone number: ";
+				cin >> telephoneNo;
+				cout << "Enter name: ";
+				cin >> name;
+
+				directory.insert(telephoneNo, name);
+				directoryWithReplacement.insertReplacement(telephoneNo, name);
+
+				cout << "Enter again?(0/1): ";
+				cin >> takeInput;
 
 
+			}
 		}
 		else if (choice == "2")
 		{
 			directory.showTable();
-			long int telephoneNo;
-			cout << "Enter telephone no: ";
-			cin >> telephoneNo;
-			directory.display(telephoneNo);
-			cout << "after display"<< endl;
+			directoryWithReplacement.showTable();
 		}
 		else if (choice == "3")
 		{
+			long int telephoneNo;
+			cout << "Enter telephone no: ";
+			cin >> telephoneNo;
+			int compar = directory.search(telephoneNo);
+			int comparWithRepl = directoryWithReplacement.search(telephoneNo);
+
+			cout << "Number of comparisons without replacement: " << compar << endl;
+			cout << "Number of comparisons with replacement: " << comparWithRepl << endl;
+		}
+		else if (choice == "4")
+		{
 			on = false;
+			cout << "Thank you. Exiting..." << endl;
 		}
 		else
 		{
