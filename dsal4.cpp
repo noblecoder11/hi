@@ -8,7 +8,7 @@
 
 #include <iostream>
 using namespace std;
-#define SIZE 2069
+#define SIZE 3
 
 class HashEntry
 {
@@ -126,7 +126,16 @@ public:
 		}
 	}
 
-
+	int getSize()
+	{
+		int count = 0;
+		for(int i=0;i<SIZE;i++)
+		{
+			if(ht[i].telephoneNo!=0)
+				count++;
+		}
+		return count;
+	}
 };
 
 int main() {
@@ -151,6 +160,17 @@ int main() {
 
 			while (takeInput)
 			{
+				if (directory.getSize() < SIZE)
+				{
+					cout << "Add user?(0/1): ";
+					cin >> takeInput;
+				}
+				else
+				{
+					cout << "Directory is now full." << endl;
+					break;
+				}
+
 				long int telephoneNo;
 				string name;
 				cout << "Enter telephone number: ";
@@ -160,10 +180,6 @@ int main() {
 
 				directory.insert(telephoneNo, name);
 				directoryWithReplacement.insertReplacement(telephoneNo, name);
-
-				cout << "Enter again?(0/1): ";
-				cin >> takeInput;
-
 
 			}
 		}
