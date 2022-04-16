@@ -4,7 +4,6 @@
 // Version     : 1.0.0
 // Copyright   : 
 // Description : Implement all the functions of a dictionary (ADT) using hashing and handle collisions using separate chaining using linked list. Data: Set of (key, value) pairs, Keys are mapped to values, Keys must be comparable, Keys must be unique. Standard Operations: Insert (key, value), Find(key), Delete(key)
-
 //============================================================================
 
 #include <iostream>
@@ -42,9 +41,10 @@ class HashTable
 
 public:
     HashTable();
+    static int comparisons;
     int hashFunction(string key);
     void insertKey(string key, string meaning);
-    void searchKey(string key);
+    pair<int, int> searchKey(string key);
     void deleteKey(string key);
     void displayTable();
 };
@@ -56,6 +56,8 @@ HashTable::HashTable()
         ht[i] = NULL;
     }
 }
+
+int HashTable::comparisons = 0;
 
 int HashTable::hashFunction(string key)
 {
@@ -84,32 +86,40 @@ void HashTable::insertKey(string key, string meaning)
     }
 }
 
-void HashTable::searchKey(string key)
+pair<int, int> HashTable::searchKey(string key)
 {
     int hashIndex = hashFunction(key);
-    
+    comparisons = 0;
+
     if (ht[hashIndex] == NULL)
     {
-        cout << "Key not present" << endl;
-        return;
+        comparisons++;
+        // cout << "Key not present" << endl;
+        return make_pair(comparisons, 0);
     }
     else
     {
         HashEntry* ptr = ht[hashIndex];
-        while (ptr->key != key && ptr->next != NULL)
+        
+        while (true)
         {
+            comparisons++;
+            if (ptr->key == key)
+                break;
+            if (ptr->next == NULL)
+                break;
             ptr = ptr -> next;
-            
         }
 
-        if (ptr == NULL)
+        if (ptr->key != key)
         {
-            cout << "Key not found" << endl;
-            return;
+            // cout << "Key not found" << endl;
+            return make_pair(comparisons, 0);
         }
         else
         {
             cout << hashIndex << ": " << ptr->key << " " << ptr->meaning << endl;
+            return make_pair(comparisons, 1);
         }
         
         
@@ -203,7 +213,15 @@ int main()
             cout << "Enter meaning: ";
             cin >> meaning;
 
-            dictionary.insertKey(key, meaning);
+            if (dictionary.searchKey(key).second == 1)
+            {
+                cout << "Key already exists" << endl;
+            }
+            else
+            {
+                dictionary.insertKey(key, meaning);
+            }
+
         }
         else if (choice == "2")
         {
@@ -211,7 +229,20 @@ int main()
             cout << "Enter key: ";
             cin >> key;
 
-            dictionary.searchKey(key);
+            pair <int, int> result = dictionary.searchKey(key);
+            int comparisons = result.first;
+            bool found = result.second;
+
+            if(!found)
+            {
+                cout << "Key not present" << endl;    
+                cout << "Comparisons: " << comparisons << endl;
+            }
+            else
+            {
+                cout << "Comparisons: " << comparisons << endl;
+            }
+
         }
         else if (choice == "3")
         {
@@ -235,7 +266,6 @@ int main()
             cout << "Enter valid choice" << endl;
         }
     }
-    
-    
+
 return 0;
 }
