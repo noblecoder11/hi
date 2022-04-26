@@ -29,6 +29,9 @@ section .data
     colon db "  :  "
     colonLen equ $ - colon 
     
+    labels db 10, "base address  : limit ", 10
+    labelsLen equ $ - labels
+    
 section .bss
     gdtr resd 1
          resw 1
@@ -78,36 +81,39 @@ protected_mode :
          smsw [msw]
          
          write gdtrMsg,gdtrMsgLen
+         write labels, labelsLen
          mov bx,[gdtr+4]
-         call disp
+         call hex_to_ascii
          mov bx,[gdtr+2]
-         call disp
+         call hex_to_ascii
          write colon , colonLen
          mov bx,[gdtr]
-         call disp
+         
+         call hex_to_ascii
          
          write ldtrMsg,ldtrMsgLen
          mov bx,[ldtr]
-         call disp
+         call hex_to_ascii
          
          write idtrMsg,idtrMsgLen
+         write labels, labelsLen
          mov bx,[idtr+4]
-         call disp
+         call hex_to_ascii
          mov bx,[idtr+2]
-         call disp
+         call hex_to_ascii
          write colon , colonLen
          mov bx,[idtr]
-         call disp
+         call hex_to_ascii
          
          write trMsg,trMsgLen
          mov bx,[tr]
-         call disp
+         call hex_to_ascii
          
          write mswMsg,mswMsgLen
          mov bx,[msw+2]
-         call disp
+         call hex_to_ascii
          mov bx,[msw]
-         call disp
+         call hex_to_ascii
          
 exit:    
     mov rax, 60
@@ -115,7 +121,7 @@ exit:
     syscall
     
     
-disp:
+hex_to_ascii:
         mov rdi, result 	;point rdi to result variable
         mov cx,04 		;load count of rotation in cl
 	up1:
