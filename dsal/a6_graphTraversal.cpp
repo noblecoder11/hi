@@ -3,9 +3,9 @@
 // Author      : 21132_Shreyash Halge
 // Version     : 1.0.0
 // Start Date  : 18 April 2022
-// End Date    :
+// End Date    : 
 // Copyright   : Your copyright notice
-// Description : Represent a give graph using adjacency list to perform DFS and BFS. Use the map of the area around colleges the graph. Identify the prominent landmarks as nodes and perform DFS and BFS on that.
+// Description : Represent a given graph using adjacency list to perform DFS and BFS. Use the map of the area around colleges the graph. Identify the prominent landmarks as nodes and perform DFS and BFS on that.(Adjacency List is used)
 //============================================================================
 
 #include <bits/stdc++.h>
@@ -14,7 +14,7 @@ using namespace std;
 struct Node
 {
 	int dest;
-	Node* next;
+	Node *next;
 
 	Node()
 	{
@@ -31,11 +31,13 @@ struct Node
 class Graph
 {
 	int n;
-	Node** adjList;
-
+	Node **adjList;
+	bool *visited;
+	string *landmarks;
 public:
 	Graph(int n);
 	~Graph();
+	void showLandmarks();
 	void addEdge(int s, int d);
 	void push(int source, int destination);
 	void showList();
@@ -45,36 +47,45 @@ public:
 
 Graph::Graph(int n)
 {
-	adjList = new Node* [n];
-
+	this->n = n;
+	adjList = new Node *[n];
+	landmarks = new string [n];
 	for (int i = 0; i < n; i++)
 	{
+		string s;
+		cout << "Enter landmark " << i << " : "; 
+		cin >> s;
+		landmarks[i] = s;
 		adjList[i] = NULL;
 	}
 
-	this->n = n;
+	visited = new bool[n];
+	for (int i = 0; i < n; i++)
+	{
+		visited[i] = false;
+	}
 
 	cout << "Graph with no edges created" << endl;
-
 }
 
 Graph::~Graph()
 {
-	delete [] adjList;
+	delete[] adjList;
+	delete[] visited;
 }
 
 void Graph::push(int source, int destination)
 {
-	Node* newNode = new Node(destination);
-	Node* ptr = adjList[source];
+	Node *newNode = new Node(destination);
+	Node *ptr = adjList[source];
 
-	if(ptr == NULL)
+	if (ptr == NULL)
 	{
 		adjList[source] = newNode;
 		return;
 	}
 
-	while(ptr->next != NULL)
+	while (ptr->next != NULL)
 		ptr = ptr->next;
 
 	ptr->next = newNode;
@@ -83,30 +94,41 @@ void Graph::push(int source, int destination)
 void Graph::addEdge(int source, int destination)
 {
 	push(source, destination);
+	for (int i = 0; i < n; i++)
+	{
+		visited[i] = false;
+	}
+}
 
+void Graph::showLandmarks()
+{
+	cout << endl;
+	for(int i =0; i < n; i++)
+	{
+		cout << i << ". " << landmarks[i] << endl;
+	}
 }
 
 void Graph::showList()
 {
+	cout << endl;
 	for (int i = 0; i < n; i++)
 	{
-		cout << i << ": ";
-		Node* temp = adjList[i];
+		cout << landmarks[i] << ": ";
+		Node *temp = adjList[i];
 
 		if (adjList[i] == NULL)
 		{
 			cout << endl;
 			continue;
 		}
-//		cout << adjList[i]->dest << " ";
-
 
 		while (temp->next != NULL)
 		{
-			cout << temp->dest << " ";
+			cout << landmarks[temp->dest] << " -> ";
 			temp = temp->next;
 		}
-		cout << temp->dest << " ";
+		cout << landmarks[temp->dest] << " ";
 
 		cout << endl;
 	}
@@ -115,10 +137,50 @@ void Graph::showList()
 void Graph::bfs(int start)
 {
 	bool visited[n];
-	
+	for (int i = 0; i < n; i++)
+	{
+		visited[i] = false;
+	}
+
+	queue<int> Q;
+
+	Q.push(start);
+	cout << "BFS: ";
+	while (!Q.empty())
+	{
+		int u = Q.front();
+
+		cout << landmarks[u] << " ";
+		visited[u] = true;
+		Q.pop();
+
+		for (auto i = adjList[u]; i != NULL; i = i->next)
+		{
+			if (!visited[i->dest])
+			{
+				visited[i->dest] = true;
+				Q.push(i->dest);
+			}
+		}
+	}
+
+	cout << endl;
 }
 
-int main() {
+void Graph::dfs(int start)
+{
+	visited[start] = true;
+
+	cout << landmarks[start] << " ";
+	for (auto itr = adjList[start]; itr != NULL; itr = itr->next)
+	{
+		if (!visited[itr->dest])
+			dfs(itr->dest);
+	}
+}
+
+int main()
+{
 
 	cout << "Enter number of nodes: ";
 	int n;
@@ -128,7 +190,7 @@ int main() {
 	while (true)
 	{
 
-		cout << "MAIN MENU" << endl;
+		cout << "\n----MAIN MENU----\n";
 		cout << "1. AddEdge\n";
 		cout << "2. View Adj List\n";
 		cout << "3. BFS\n";
@@ -136,15 +198,22 @@ int main() {
 		cout << "5. Exit\n";
 
 		string choice;
+		cout << "Enter your choice: ";
 		cin >> choice;
 
 		if (choice == "1")
 		{
 			int s, d;
+			nearbyMap.showLandmarks();
 			cout << "Enter the source vertex: ";
 			cin >> s;
 			cout << "Enter the destination vertex: ";
 			cin >> d;
+			if (s > n || d > n)
+			{
+				cout << "Enter valid vertex" << endl;
+				continue;
+			}
 			nearbyMap.addEdge(s, d);
 		}
 		else if (choice == "2")
@@ -155,18 +224,31 @@ int main() {
 		{
 			cout << "Enter starting point: ";
 			int start;
+			nearbyMap.showLandmarks();
 			cin >> start;
+
+			if (start > n)
+			{
+				cout << "Enter valid vertex" << endl;
+				continue;
+			}
 			nearbyMap.bfs(start);
-			
-			cout << "Work in Progress\n";
 		}
 		else if (choice == "4")
 		{
 			cout << "Enter starting point: ";
 			int start;
+			nearbyMap.showLandmarks();
 			cin >> start;
+
+			if (start > n)
+			{
+				cout << "Enter valid vertex" << endl;
+				continue;
+			}
+			cout << "DFS: ";
 			nearbyMap.dfs(start);
-			cout << "Work in Progress\n";
+			cout << endl;
 		}
 		else if (choice == "5")
 		{
@@ -178,8 +260,6 @@ int main() {
 			cout << "Enter a valid choice\n";
 		}
 	}
-
-
 
 	return 0;
 }
