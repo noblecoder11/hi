@@ -32,14 +32,27 @@ Graph::Graph(int n)	//constructor
 		adjMat[i] = new int [n];
 	}
 
+
 	for (int i = 0; i < n; i++)
 	{
-		for (int j = 0; j < n; j++)
+		for (int j = 0; j <= i; j++)
 		{
-			cout << "Enter the cost of telephone line between " << i << " and " << j << ": ";
-			cin >> adjMat[i][j];
-		}
+			if(i==j)
+			{
+				adjMat[i][j] = 0;
+			}
+			else
+			{
+				cout << "Enter the cost of telephone line between " << i << " and " << j << "(enter -1 if no telephone line exists): ";
+				int temp;
+				cin >> temp;
+				if(temp == -1)
+					adjMat[i][j] = MAX_INT;
+				else
+					adjMat[i][j] = adjMat[j][i] = temp;
+			}
 
+		}
 	}
 }
 
@@ -90,7 +103,14 @@ void Graph::primMST()
 
 
 int main() {
-	Graph rates(6);
+	cout << "Enter number of offices: ";
+	int n;
+	cin >> n;
+
+	Graph rates(n);
+
 	rates.primMST();
+
+	cout << "Exiting..." << endl;
 	return 0;
 }
