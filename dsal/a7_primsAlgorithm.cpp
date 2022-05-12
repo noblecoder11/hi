@@ -15,7 +15,6 @@ class Graph
 	int n;
 	int** adjMat;
 
-
 public:
 	Graph(int n);
 	int minKey(int [], bool []);
@@ -56,6 +55,7 @@ Graph::Graph(int n)	//constructor
 	}
 }
 
+
 int Graph::minKey(int key[], bool mstSet[]) // returns index of vertex with minimum weight
 {
     int min = MAX_INT, min_index;
@@ -70,8 +70,14 @@ int Graph::minKey(int key[], bool mstSet[]) // returns index of vertex with mini
 void Graph::printMST(int parent[])
 {
     cout<<"Edge \tWeight\n";
+    int totCost = 0;
     for (int i = 1; i < n; i++)
+    {
         cout<<parent[i]<<" - "<<i<<" \t"<<adjMat[i][parent[i]]<<" \n";
+        totCost += adjMat[i][parent[i]];
+    }
+    cout << totCost << endl;
+
 }
 
 void Graph::primMST()
