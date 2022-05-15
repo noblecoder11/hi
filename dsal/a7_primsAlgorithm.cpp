@@ -1,7 +1,7 @@
 //============================================================================
 // Name        : a7_primsAlgorithm.cpp
 // Author      : 21132_Shreyash Halge
-// Version     :
+// Date        : 16 May 2022
 // Copyright   : Your copyright notice
 // Description : Prim's Algorithm
 //============================================================================
@@ -120,3 +120,19 @@ int main() {
 	cout << "Exiting..." << endl;
 	return 0;
 }
+
+/*
+Enter number of offices: 4
+Enter the cost of telephone line between 1 and 0(enter -1 if no telephone line exists): 7 
+Enter the cost of telephone line between 2 and 0(enter -1 if no telephone line exists): 6
+Enter the cost of telephone line between 2 and 1(enter -1 if no telephone line exists): 4
+Enter the cost of telephone line between 3 and 0(enter -1 if no telephone line exists): 2
+Enter the cost of telephone line between 3 and 1(enter -1 if no telephone line exists): 12
+Enter the cost of telephone line between 3 and 2(enter -1 if no telephone line exists): 3
+Edge    Weight
+2 - 1   4
+3 - 2   3
+0 - 3   2
+9
+Exiting...
+*/
