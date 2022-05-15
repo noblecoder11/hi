@@ -2,7 +2,7 @@
 // Name        : a5_openHashing.cpp
 // Author      : Shreyash Halge 21132
 // Version     : 1.0.0
-// Copyright   : 
+// Date        : 
 // Description : Implement all the functions of a dictionary (ADT) using hashing and handle collisions using separate chaining using linked list. Data: Set of (key, value) pairs, Keys are mapped to values, Keys must be comparable, Keys must be unique. Standard Operations: Insert (key, value), Find(key), Delete(key)
 //============================================================================
 
@@ -269,3 +269,116 @@ int main()
 
 return 0;
 }
+
+/*
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 1
+Enter key: a   
+Enter meaning: A
+
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 1
+Enter key: b
+Enter meaning: B
+
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 1
+Enter key: d
+Enter meaning: D
+
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 1
+Enter key: abc
+Enter meaning: ABC
+
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 3
+------ DICTIONARY ------
+0
+1 --> | a: A | --> | b: B | --> | d: D |
+2
+3 --> | abc: ABC |
+4
+------------------------
+
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 2
+Enter key: abc
+3: abc ABC
+Comparisons: 1
+
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 2
+Enter key: c
+Key not present
+Comparisons: 3
+
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 4
+Enter key: b
+Key deleted successfully
+
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 3
+------ DICTIONARY ------
+0
+1 --> | a: A | --> | d: D |
+2
+3 --> | abc: ABC |
+4
+------------------------
+
+MAIN MENU
+1. Insert Key
+2. Search Key
+3. Display Table
+4. Delete Key
+5. Exit
+Enter your choice: 5
+Thank You. Exiting...
+*/
