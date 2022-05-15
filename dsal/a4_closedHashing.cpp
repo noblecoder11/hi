@@ -211,3 +211,61 @@ int main() {
 	}
 	return 0;
 }
+
+/*
+Telephone directory
+MAIN MENU
+1. Insert
+2. Display
+3. Search
+4. Exit
+1
+Add user?(0/1): 1
+Enter telephone number: 1234567890
+Enter name: shreyash
+Add user?(0/1): 1
+Enter telephone number: 1234598765
+Enter name: aditya
+Add user?(0/1): 0
+Enter telephone number: 1234567862
+Enter name: adsjkf
+MAIN MENU
+1. Insert
+2. Display
+3. Search
+4. Exit
+2
+Hash table
+0:1234567890 shreyash
+1:1234567862 adsjkf
+2:1234598765 aditya
+Hash table
+0:1234567890 shreyash
+1:1234567862 adsjkf
+2:1234598765 aditya
+MAIN MENU
+1. Insert
+2. Display
+3. Search
+4. Exit
+1
+Directory is now full.
+MAIN MENU
+1. Insert
+2. Display
+3. Search
+4. Exit
+3
+Enter telephone no: 1234567890
+1234567890: shreyash
+1234567890: shreyash
+Number of comparisons without replacement: 1
+Number of comparisons with replacement: 1
+MAIN MENU
+1. Insert
+2. Display
+3. Search
+4. Exit
+4
+Thank you. Exiting...
+*/
