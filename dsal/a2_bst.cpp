@@ -1,9 +1,9 @@
 //============================================================================
 // Name        : a2_bst.cpp
 // Author      : 21132_Shreyash Halge
-// Version     :
+// Date        : 
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Description : Binary Search Tree
 //============================================================================
 
 #include <iostream>
@@ -309,3 +309,179 @@ int main() {
 	}
 	return 0;
 }
+
+/* OUTPUT
+
+WELCOME TO DICTIONARY!
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 1
+Enter words and their meaning. Enter ` key to finish.
+Enter word: Future  
+Enter meaning of Future: Something happening after this moment
+Enter word: PICT
+Enter meaning of PICT: College
+Enter word: Shirt
+Enter meaning of Shirt: Cloth to wear 
+Enter word: `
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 2
+Enter a word: Bag
+Enter meaning: used to carry
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 3
+Enter a word: bag
+=> bag: used to carry
+Number of comparisons: 2
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 4
+Dictionary in ascending order:
+=>bag: used to carry
+=>future: Something happening after this moment
+=>pict: College
+=>shirt: Cloth to wear
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 5
+Dictionary in descending order:
+Dictionary in ascending order:
+shirt: Cloth to wear
+pict: College
+future: Something happening after this moment
+bag: used to carry
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 6
+Enter a word: bag
+=> bag: used to carry
+Enter new meaning: used to carry items
+Meaning Updated.
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 4
+Dictionary in ascending order:
+=>bag: used to carry items
+=>future: Something happening after this moment
+=>pict: College
+=>shirt: Cloth to wear
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 7
+Enter a word to delete: bag
+Node deleted successfully.
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 4
+Dictionary in ascending order:
+=>future: Something happening after this moment
+=>pict: College
+=>shirt: Cloth to wear
+
+--------------------------
+MENU
+1. Create Dictionary
+2. Add a word
+3. Search
+4. View in ascending order
+5. View in descending order
+6. Update meaning
+7. Delete a word
+8. Exit
+--------------------------
+Enter your choice: 8
+Thank You. Exiting...
+
+*/
