@@ -3,7 +3,7 @@
 // Author      : 21132_Shreyash Halge
 // Version     : 1.0.0
 // Start Date  : 18 April 2022
-// End Date    : 
+// End Date    : 05 May 2022
 // Copyright   : Your copyright notice
 // Description : Represent a given graph using adjacency list to perform DFS and BFS. Use the map of the area around colleges the graph. Identify the prominent landmarks as nodes and perform DFS and BFS on that.(Adjacency List is used)
 //============================================================================
@@ -263,3 +263,139 @@ int main()
 
 	return 0;
 }
+
+/* OUTPUT
+Enter number of nodes: 4
+Enter landmark 0 : Katraj
+Enter landmark 1 : Swargate
+Enter landmark 2 : Shivajinagar
+Enter landmark 3 : Kothrud
+Graph with no edges created
+
+----MAIN MENU----
+1. AddEdge
+2. View Adj List
+3. BFS
+4. DFS
+5. Exit
+Enter your choice: 1
+
+0. Katraj
+1. Swargate
+2. Shivajinagar
+3. Kothrud
+Enter the source vertex: 0
+Enter the destination vertex: 1
+
+----MAIN MENU----
+1. AddEdge
+2. View Adj List
+3. BFS
+4. DFS
+5. Exit
+Enter your choice: 1
+
+0. Katraj
+1. Swargate
+2. Shivajinagar
+3. Kothrud
+Enter the source vertex: 1
+Enter the destination vertex: 2
+
+----MAIN MENU----
+1. AddEdge
+2. View Adj List
+3. BFS
+4. DFS
+5. Exit
+Enter your choice: 1
+
+0. Katraj
+1. Swargate
+2. Shivajinagar
+3. Kothrud
+Enter the source vertex: 1
+Enter the destination vertex: 3
+
+----MAIN MENU----
+1. AddEdge
+2. View Adj List
+3. BFS
+4. DFS
+5. Exit
+Enter your choice: 1
+
+0. Katraj
+1. Swargate
+2. Shivajinagar
+3. Kothrud
+Enter the source vertex: 3
+Enter the destination vertex: 1
+
+----MAIN MENU----
+1. AddEdge
+2. View Adj List
+3. BFS
+4. DFS
+5. Exit
+Enter your choice: 2
+
+Katraj: Swargate
+Swargate: Shivajinagar -> Kothrud
+Shivajinagar:
+Kothrud: Swargate
+
+----MAIN MENU----
+1. AddEdge
+2. View Adj List
+3. BFS
+4. DFS
+5. Exit
+Enter your choice: 3
+Enter starting point: 
+0. Katraj
+1. Swargate
+2. Shivajinagar
+3. Kothrud
+1
+BFS: Swargate Shivajinagar Kothrud 
+
+----MAIN MENU----
+1. AddEdge
+2. View Adj List
+3. BFS
+4. DFS
+5. Exit
+Enter your choice: 4
+Enter starting point: 
+0. Katraj
+1. Swargate
+2. Shivajinagar
+3. Kothrud
+2
+DFS: Shivajinagar 
+
+----MAIN MENU----
+1. AddEdge
+2. View Adj List
+3. BFS
+4. DFS
+5. Exit
+Enter your choice: 4
+Enter starting point: 
+0. Katraj
+1. Swargate
+2. Shivajinagar
+3. Kothrud
+1
+DFS: Swargate Kothrud 
+
+----MAIN MENU----
+1. AddEdge
+2. View Adj List
+3. BFS
+4. DFS
+5. Exit
+Enter your choice: 5
+Exited successfully
+*/
