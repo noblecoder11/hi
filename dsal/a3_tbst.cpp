@@ -312,3 +312,132 @@ int main()
     cout << "\n";
     return 0;
 }
+
+/*
+ThreadedBinaryTree
+
+----- MAIN MENU -----
+1. Insert 
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 1
+Enter integer element to insert: 3
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 1
+Enter integer element to insert: 5
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 1
+Enter integer element to insert: 8
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 3
+Enter integer element to search: 3
+Element 3 found in the tree
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 1
+Enter integer element to insert: 9
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 5
+Display tree: 
+ 3 5 8 9
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 2
+Enter integer element to delete: 8
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 5
+Display tree: 
+ 3 5 9
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 3
+Enter integer element to search: 9
+Element 9 found in the tree
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 4
+
+Tree Cleared
+
+----- MAIN MENU -----
+1. Insert
+2. Delete
+3. Search
+4. Clear
+5. Inorder display
+6. Preorder display
+7. Exit
+Enter Your Choice: 7
+*/
