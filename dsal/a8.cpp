@@ -1,13 +1,10 @@
-/*
-    Shreyash Halge
-    21132 (F1)
-    Date of completion: 16/05/22
-
-    Problem Statement:
-    Write a C++/Java program to implement topological sorting on graph using objectoriented
-    programming features Design necessary class ( Use of graph)
-
-*/
+//============================================================================
+// Name        : a8_topologicalSort.cpp
+// Author      : 21132_Shreyash Halge
+// Date        : 16-05-2022
+// Copyright   : Your copyright notice
+// Description : Write a C++/Java program to implement topological sorting on graph using object oriented programming features Design necessary class ( Use of graph)
+//============================================================================
 
 #include <iostream>
 using namespace std;
@@ -108,7 +105,7 @@ void Graph::insert(int x, int y, int &cnt)
         adjMatrix[x][y] = 1;
     else
     {
-        cout << "\nShould be acyclic connected graph" << endl;
+        cout << "\nShould be Directed Acyclic Graph (DAG)" << endl;
         cnt--;
     }
     cnt++;
@@ -165,7 +162,7 @@ void Graph::topoSort()
     }
 
     for (int i = 0; i < size; i++)
-        cout << B[i] << " ,  ";
+        cout << B[i] << ", ";
     cout << endl;
 }
 
@@ -173,30 +170,28 @@ int main()
 {
     bool menu = 1;
     int size;
-    cout << "\nEnter total vertex in Graph: ";
+    cout << "\nEnter number of vertices: ";
     cin >> size;
     Graph g(size);
     int ch;
     int cnt = 0;
     while (menu)
     {
-        cout << "\n1.Add edges \n2.Show matrix .\n3.Topological Sort" << endl;
+        cout << "\n\n---- MENU ----\n1.Add edges \n2.Show adjacency matrix\n3.Topological Sort\n-1. Exit" << endl;
         cout << "Enter choice: ";
         cin >> ch;
         switch (ch)
         {
         case 1:
-            int edges;
-            cout << "\nHow many edges you want to add: ";
-            cin >> edges;
-            while (edges--)
+            int x, y;
+            while (x!=-1)
             {
-                int x, y;
-                cout << "\nFrom: ";
+                cout << "\nSource(Enter -1 to stop): ";
                 cin >> x;
-                cout << "To: ";
+                cout << "Destination: ";
                 cin >> y;
-                g.insert(x, y, cnt);
+                if(x!=-1)
+                    g.insert(x, y, cnt);
             }
             break;
 
@@ -210,6 +205,7 @@ int main()
 
         case -1:
             menu = 0;
+            cout << "Exiting..." << endl;
             break;
 
         default:
@@ -219,37 +215,46 @@ int main()
 
     return 0;
 }
-/*
-Enter total vertex in Graph: 6
 
-1.Add edges
-2.Show matrix .
+/*
+
+Enter number of vertices: 6
+
+
+---- MENU ----
+1.Add edges 
+2.Show adjacency matrix
 3.Topological Sort
+-1. Exit
 Enter choice: 1
 
-How many edges you want to add: 6
+Source(Enter -1 to stop): 5
+Destination: 0
 
-From: 5
-To: 0
+Source(Enter -1 to stop): 5
+Destination: 2
 
-From: 4
-To: 0
+Source(Enter -1 to stop): 4
+Destination: 0
 
-From: 5
-To: 2
+Source(Enter -1 to stop): 4
+Destination: 1
 
-From: 4
-To: 1
+Source(Enter -1 to stop): 2
+Destination: 3
 
-From: 2
-To: 3
+Source(Enter -1 to stop): 3
+Destination: 1
 
-From: 3
-To: 1
+Source(Enter -1 to stop): -1
+Destination: -1
 
+
+---- MENU ----
 1.Add edges
-2.Show matrix .
+2.Show adjacency matrix
 3.Topological Sort
+-1. Exit
 Enter choice: 2
 
 0   0   0   0   0   0
@@ -259,14 +264,20 @@ Enter choice: 2
 1   1   0   0   0   0
 1   0   1   0   0   0
 
-1.Add edges
-2.Show matrix .
-3.Topological Sort
-Enter choice: 3
-4 ,  5 ,  0 ,  2 ,  3 ,  1 ,
 
+---- MENU ----
 1.Add edges
-2.Show matrix .
+2.Show adjacency matrix
 3.Topological Sort
+-1. Exit
+Enter choice: 3
+4, 5, 0, 2, 3, 1, 
+
+
+---- MENU ----
+1.Add edges
+2.Show adjacency matrix
+3.Topological Sort
+-1. Exit
 Enter choice: -1
 */
