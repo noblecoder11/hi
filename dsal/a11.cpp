@@ -1,15 +1,11 @@
-/*
-    Shreyash Halge
-    21132 (F1-Batch)
-    Date of completion: 16/05/22
-
-    Problem Statement:
-    Implement the Heap sort algorithm implemented in CPP/Java demonstrating heap
-    data structure with modularity of programming language
-*/
-
+//============================================================================
+// Name        : a11_heapSort.cpp
+// Author      : 21132 Shreyash Halge
+// Date        : 16 May 2022
+// Copyright   : Your copyright notice
+// Description : Implement the Heap sort algorithm implemented in CPP/Java demonstrating heap data structure with modularity of programming language
+//============================================================================
 #include <iostream>
-#define sp " "
 using namespace std;
 
 class Heap
@@ -23,6 +19,7 @@ public:
         heap = new int[x + 1];
         last = 0;
     }
+
     void insert(int x)
     {
         int i = ++last;
@@ -35,9 +32,11 @@ public:
                 swap(heap[i], heap[i / 2]);
             i /= 2;
         }
+        cout << "After insertion: ";
         for (int i = 1; i <= last; i++)
-            cout << heap[i] << sp;
+            cout << heap[i] << " ";
     }
+
     void deleteLast()
     {
         swap(heap[last], heap[1]);
@@ -66,151 +65,46 @@ public:
         }
         cout << "\nHeap sort: ";
         for (int i = 1; i <= size; i++)
-            cout << heap[i] << sp;
+            cout << heap[i] << " ";
         cout << endl;
     }
-} * HP;
+};
 
 int main()
 {
     bool menu = 1;
     int x;
-    HP = new Heap(100);
-    while (menu)
+    Heap* HP = new Heap(100);
+    cout << "HEAP SORT" << endl;
+    while (x!=-1)
     {
-        int ch;
-        cout << "\n\nMENU\n1.Insert\n2.Heap-Sort\nENTER: ";
-        cin >> ch;
-        switch (ch)
-        {
-        case 1:
-            cout << "\nEnter element: ";
-            cin >> x;
+        cout << "\nEnter element to be inserted(Enter -1 to exit): ";
+        cin >> x;
+        if (x!=-1)
             HP->insert(x);
-            break;
-
-        case 2:
-            HP->deleteLast();
-            break;
-
-        case -1:
-            menu = 0;
-            break;
-
-        default:
-            break;
-        }
     }
+
+    cout << "\nSorted List: ";
+    HP->deleteLast();
 
     return 0;
 }
+
 /*
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
+HEAP SORT
 
-Enter element: 98
-98 
+Enter element to be inserted(Enter -1 to exit): 4
+After insertion: 4 
+Enter element to be inserted(Enter -1 to exit): 10
+After insertion: 10 4 
+Enter element to be inserted(Enter -1 to exit): 3
+After insertion: 10 4 3 
+Enter element to be inserted(Enter -1 to exit): 5
+After insertion: 10 5 3 4 
+Enter element to be inserted(Enter -1 to exit): 1
+After insertion: 10 5 3 4 1 
+Enter element to be inserted(Enter -1 to exit): -1
 
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 23
-98 23 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 78
-98 23 78 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 25
-98 25 78 23 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 99
-99 98 78 23 25 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 69
-99 98 78 23 25 69 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 21
-99 98 78 23 25 69 21 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 28
-99 98 78 28 25 69 21 23 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 79
-99 98 78 79 25 69 21 23 28 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 77
-99 98 78 79 77 69 21 23 28 25 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 22
-99 98 78 79 77 69 21 23 28 25 22 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 1
-
-Enter element: 1
-99 98 78 79 77 69 21 23 28 25 22 1 
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: 2
-
-Heap sort: 1 21 22 23 25 28 69 77 78 79 98 99 
-
-
-MENU
-1.Insert
-2.Heap-Sort
-ENTER: -1
+Sorted List:
+Heap sort: 1 3 4 5 10
 */
