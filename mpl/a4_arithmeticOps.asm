@@ -1,76 +1,96 @@
-%macro print 2
-mov rax,01
-mov rdi,01
-mov rsi,%1
-mov rdx,%2
+%macro IO 4
+mov rax, %1
+mov rdi, %2
+mov rsi, %3
+mov rdx, %4
 syscall
 %endmacro
 
-section .data
-	msg1 db "Largest number is: "
-	len1 equ $-msg1
-	msg2 db "Largest Num"
-	len2 equ $-msg2
-	array dq 55h, 0x6a, 0x58, -7dh, 20h, 2h, -45h 
+ section .data
+ num1: dq 0x9
+ num2: dq 0x8
+newLine: db "",0x0A
+len: equ $-newLine
+ 
+ section .bss
+ result: resq 2
+ AdditionResult: resq 2
+ SubtractionResult: resq 2
+ DivisionResult: resq 2
+ MultiplicationResult: resq 2
+ cnt: resb 1
+ 
+ section .text
+ global _start
+ 
+ _start:
+ 	CALL Addition
+ 	CALL Subtraction
+ 	CALL Division
+ 	CALL Multiplication
+ 	mov rax, 60
+ 	mov rdi, 00
+ 	syscall
 
-section .bss
-	count resb 2
-	largest resq 4
-	ncount resb 2
-	temp resb 2
+HexToASCII:
+ 		mov byte[cnt], 0x10
+ 		lab:
+ 			rol rax, 4
+ 			mov bl, al
+ 			and bl, 0x0F
+ 			cmp bl, 09H
+ 			jbe l1
+ 			add bl, 07H
+ 			l1:
+ 				add bl, 30H
+ 			mov [rsi],bl
+ 			inc rsi
+ 			dec byte[cnt]
+ 			jnz lab
+ 		ret
 
-section .text
-	global _start
-_start:
-
-	mov byte[count],07
-	mov byte[largest],00
-
-	mov rsi,array
-
-	check:
-		; using cmp
-		mov rax, qword[rsi]
-		cmp rax,[largest]
-		jg greater
-		
-		jmp change_number
-		greater:
-		mov [largest],rax
-
-	change_number:
-		add rsi,08
-		dec byte[count]
-		jnz check
-
-	;mov bl,[pcount]
-	
-	b1:
-	print msg1,len1
-	mov bh,[largest]
-	call hex_to_ascii
-	
-	print 0h, 1
-
-	mov rax,60
-	mov rdi,00
-	syscall
-
-	;function
-	hex_to_ascii:
-		mov byte[count],02
-
-		loop:
-			rol bh,04
-			mov al,bh
-			AND al,0FH
-			cmp al,09
-			jbe l1
-			add al,07h
-		l1:
-			add al,30h
-			mov[temp],al
-			print temp,02
-			dec byte[count]
-			jnz loop
+Addition:
+	mov rax, qword[num1]
+	add rax, qword[num2]
+	mov rsi, AdditionResult
+	CALL HexToASCII
+ 	IO 01, 01, AdditionResult, 16
+ 	IO 01, 01, newLine, len
 	ret
+	
+Subtraction:
+	mov rax, qword[num1]
+	sub rax, qword[num2]
+	mov rsi, SubtractionResult
+ 	CALL HexToASCII
+ 	IO 01, 01, SubtractionResult, 16
+ 	IO 01, 01, newLine, len
+	ret
+
+Division:
+	xor rax, rax
+	xor rdx, rdx
+	mov rax, qword[num1]
+	div qword[num2]
+	mov rsi, DivisionResult
+	CALL HexToASCII
+	IO 01, 01, DivisionResult, 16
+	IO 01, 01, newLine, len
+	ret
+
+Multiplication:
+	xor rax, rax
+	xor rdx, rdx
+	mov rax, qword[num1]
+	mul qword[num2]
+	push rax
+	mov rax, rdx
+	mov rsi, MultiplicationResult
+	CALL HexToASCII
+	pop rax
+	CALL HexToASCII
+	IO 01,01, MultiplicationResult, 32
+	IO 01, 01, newLine, len
+	ret
+
+
