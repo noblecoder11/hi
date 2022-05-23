@@ -1,101 +1,132 @@
-%macro write 2
-mov rax, 01
-mov rdi, 01
-mov rsi, %1
-mov rdx, %2
+section .data
+
+arr1 db 11h,22h,33h,44h,55h
+space db ' '
+nwline db 10
+msg1: db 'Before overlapped :',0xa
+len1: equ $-msg1
+msg2: db 'After overlapped :',0xa
+len2: equ $-msg2
+
+section .bss
+
+adress resb 20
+data resb 5
+dig_count resb 2
+count resb 2
+arr2 resb 10
+
+%macro print 2
+mov rax,01
+mov rdi,01
+mov rsi,%1
+mov rdx,%2
 syscall
 %endmacro
 
-section .data
-    sbmsg db "Source block: "
-    sblen db $ - sbmsg
-    
-    dbmsg db 0xa, "Destination block: "
-    dblen db $ - dbmsg
-    
-    sourceBlock: dq 11h, 22h, 33h, 44h, 55h
-    
-    
-section .bss
-    destBlock resq 5
-    temp resq 1
-    count resb 1
-    result resb 4
-    
 section .text
-    global _start
-
+global _start
 _start:
-    
-    write sbmsg, sblen 
-    mov rsi, sourceBlock
-    call display_block
-    
-    write dbmsg, dblen
-    mov rsi, destBlock
-    call display_block
-    
-    mov cl, 5
-    mov rsi, sourceBlock
-    mov rdi, destBlock
-    cld
-    movsq
-    
-    mov rsi, sourceBlock
-    call display_block
-    
-    write dbmsg, dblen
-    mov rsi, destBlock
-    call display_block
-    
-    jmp exit
-    
-exit:  
-    mov rax, 60
-    mov rdi, 0
+;Block transfer using string operation
+mov esi,arr1
+mov edi,arr2
+xor rcx,rcx
+mov cx,05
+cld ;clear direction flag for autoincrement of si and di
+rep movsb
+
+
+;logic to print adress and data
+;before block transfer
+print msg1,len1
+mov byte[count],05
+mov rsi,arr1
+
+;call procedure print adress to print the 64- bit address which is in rbx
+up1: mov rbx ,rsi
+push rsi
+call printadd
+print space,01
+pop rsi
+
+;call procedure print data to print 8-bit data which is in register dl
+mov dl,[rsi]
+push rsi
+call printdata
+print nwline,01
+pop rsi
+inc rsi
+dec byte[count]
+jnz up1
+
+
+;After block transfer
+print msg2,len2
+mov byte[count],05
+mov rsi,arr2
+
+;call procedure print adress to print the 64- bit adress which is in rbx
+up3: mov rbx ,rsi
+push rsi
+call printadd
+print space,01
+pop rsi
+
+;call procedure print data to print 8-bit data which is in register dl
+mov dl,[rsi]
+push rsi
+call printdata
+print nwline,01
+pop rsi
+inc rsi
+dec byte[count]
+jnz up3
+
+    mov rax,60
+    mov rdi,00
     syscall
-    
-    
-display_block:
-    ; mov cl, 5
-    
-    ; change_number:
-    ;     mov rbx, rsi
-    ;     call hex_to_ascii
-    ;     mov rbx, [rsi]
-    ;     call hex_to_ascii
-    ;     add rsi, 08
-    ;     ; inc rsi
-    ;     dec cl
-    ;     jnz change_number
-    mov rbp,5
-    next:mov al,[rsi]
-         push rsi
-         call disp
-         pop rsi
-         inc rsi
-         dec rbp
-         jnz next
+
+
+printadd:
+    mov byte[dig_count],16
+    mov rsi,adress
+    up: rol rbx,04
+    mov al,bl
+    and al,0Fh
+    cmp al,09
+    jbe l1
+    add al,07h
+    l1:add al,30h
+    mov [rsi], al ;mov leng to str_len
+    variable for printing
+    inc rsi
+    dec byte[dig_count]
+    jnz up
+    mov rax,01
+    mov rdi,01
+    mov rsi,adress
+    mov rdx,16
+    syscall
 ret
 
-hex_to_ascii:
-        mov bl,al ;store number in bl
-        mov rdi, result ;point rdi to result variable
-        mov cx,02 ;load count of rotation in cl
-up1:
-        rol bl,04 ;rotate number left by four bits
-        mov al,bl ;move lower byte in dl
-        and al,0fh ; get only LSB
-        cmp al,09h ;compare with 39h
-        jg add_37 ;if grater than 39h skip add 37
-        add al,30h
-        jmp skip1 ;else add 30
-add_37: add al,37h
-skip1:  mov [rdi],al ;store ascii code in result variable
-        inc rdi ;point to next byte
-        dec cx ;decrement the count of digits to display
-        jnz up1 ;if not zero jump to repeat
-        
-        write result , 4
-        
-    ret
+
+printdata:
+    mov byte[dig_count],02
+    mov rsi,data
+    up2: rol dl,04
+    mov al,dl
+    and al,0Fh
+    cmp al,09
+    jbe l2
+    add al,07h
+    l2:add al,30h
+    mov [rsi], al ;mov leng to str_len variable for printing
+    inc rsi
+    dec byte[dig_count]
+    jnz up2
+    mov rax,01
+    mov rdi,01
+    mov rsi,data
+    mov rdx,02
+    syscall
+ret
