@@ -8,22 +8,22 @@ _start: mov ax,1
 	mov bl,[num]
       call fact
       mov esi,result    ; convert to ascii and display
-      mov cl,4          ;  iter1 ax=78       iter2
-up:   rol ax,4          ;       ax=87         ax = 78
-      mov dx,ax         ;       dx = 87       dx=78
-      and ax,0fh        ;       ax=07         ax=08
+      mov cl,4          
+up:   rol ax,4          
+      mov dx,ax           
+      and ax,0fh         
       cmp al,09
       jbe skip
       add al,07
 skip: add al,30h
-      mov [esi],al       ; result[0]=37       result[1]=38
-      inc esi            ;  result++
-      mov ax,dx          ; ax = 87            ax = 78
-      dec cl             ; cl= 3              cl = 2
+      mov [esi],al      
+      inc esi            
+      mov ax,dx         
+      dec cl            
       jnz up
       mov rax,1
       mov rdi,1
-      mov rsi,result        ;      display string i.e. result= 78
+      mov rsi,result
       mov rdx,4
       syscall
 
